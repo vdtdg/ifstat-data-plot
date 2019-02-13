@@ -1,4 +1,3 @@
-from pprint import pprint
 import matplotlib.pyplot as plt
 import sys
 import argparse
@@ -76,7 +75,6 @@ def chart(args, data):
         debit_in = []
         debit_out = []
         date = []
-        pprint(interface)
         for report in interface:
             debit_in.append(float(report.getIn()))
             debit_out.append(float(report.getOut()))
@@ -163,7 +161,6 @@ def main(argv):
         if args.verbose:
             be_verbose(file_data)
         parsed_data = parse(args, file_data)
-        pprint(parsed_data)
         chart(args, parsed_data)
 
 
