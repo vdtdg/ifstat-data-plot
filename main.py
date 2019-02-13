@@ -84,7 +84,7 @@ def chart(args, data):
         plt.plot(ema(debit_in, ema_window), label='Bandwidth {} period moving average'.format(ema_window), color='m')
         plt.axhline(sum(debit_in)/len(debit_in), label='Average in bandwidth', color='g')
         plt.axhline(sum(debit_out)/len(debit_out), label='Average out bandwidth', color='r')
-        plt.title("Bandwidth measurement on {}".format(key))
+        plt.title('Bandwidth measurement on {}'.format(key))
         plt.legend()
         if args.log:
             plt.yscale('log')
@@ -148,12 +148,12 @@ def parse(args, file_data):
 
 
 def be_verbose(info):
-    print("IFSTAT DATA PLOT -- Version 1.0 - Feb 2019")
-    print("The following {} network interfaces will be plotted : {}".format(len(info['interfaces']), info['interfaces']))
+    print('IFSTAT DATA PLOT -- Version 1.0 - Feb 2019')
+    print('The following {} network interfaces will be plotted : {}'.format(len(info['interfaces']), info['interfaces']))
 
 
 def main(argv):
-    parser = argparse.ArgumentParser(description='A python script that can be used to have a nice display of a ifstat output.', epilog="Note: ifstat must be used with -t for this script to work")
+    parser = argparse.ArgumentParser(description='A python script that can be used to have a nice display of a ifstat output.', epilog='Note: ifstat must be used with -t for this script to work')
     parser.add_argument('input', nargs='?', help='Output file from ifstat')
     parser.add_argument('-a', '--ema', help='Exponential moving average used to smooth the bandwidth. Default at 60.', type=int)
     parser.add_argument('-v', '--verbose', help='Increase output verbosity', action='store_true')
@@ -167,5 +167,5 @@ def main(argv):
         chart(args, parsed_data)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main(sys.argv[1:])
