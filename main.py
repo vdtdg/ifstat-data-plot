@@ -84,6 +84,7 @@ def chart(args, data):
         plt.plot(ema(debit_in, ema_window), label='Bandwidth {} period moving average'.format(ema_window), color='m')
         plt.axhline(sum(debit_in)/len(debit_in), label='Average in bandwidth', color='g')
         plt.axhline(sum(debit_out)/len(debit_out), label='Average out bandwidth', color='r')
+        plt.title("Bandwidth measurement on {}".format(key))
         plt.legend()
         if args.log:
             plt.yscale('log')
@@ -142,11 +143,13 @@ def parse(args, file_data):
         for i in range(0, len(interfaces)):
             arranged_data[interfaces[i]].append(Report(line[(i*2)+1], line[(i*2)+2], unit, interfaces[i], line[0]))
 
-    return arranged_data
+    info = {'interfaces': interfaces}
+    return arranged_data, info
 
 
-def be_verbose(file_data):
-    pass
+def be_verbose(info):
+    print("IFSTAT DATA PLOT -- Version 1.0 - Feb 2019")
+    print("The following {} network interfaces will be plotted : {}".format(len(info['interfaces']), info['interfaces']))
 
 
 def main(argv):
@@ -158,9 +161,9 @@ def main(argv):
     args = parser.parse_args(argv)
     with open(args.input) as f:
         file_data = f.readlines()
+        parsed_data, info = parse(args, file_data)
         if args.verbose:
-            be_verbose(file_data)
-        parsed_data = parse(args, file_data)
+            be_verbose(info)
         chart(args, parsed_data)
 
 
